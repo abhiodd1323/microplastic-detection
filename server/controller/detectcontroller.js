@@ -1,14 +1,15 @@
+const { detectImage } = require("../services/roboflowService");
+const service = require("../services/roboflowService");
+
+console.log(service);
+
 const detectMicroplastics = async (req, res) => {
 
     try {
 
-        console.log(req.file);
+        const result = await detectImage(req.file.path);
 
-        return res.status(200).json({
-            success: true,
-            filename: req.file.filename,
-            message: "Image uploaded successfully"
-        });
+        return res.status(200).json(result);
 
     } catch (error) {
 
