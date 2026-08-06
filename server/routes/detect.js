@@ -1,8 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
-const { detectMicroplastics } = require("../controller/detectcontroller");
+const upload = require("../middleware/uploadMiddleware");
 
-router.post("/detect", detectMicroplastics);
+const {
+    detectMicroplastics
+} = require("../controller/detectcontroller");
+
+router.post(
+    "/detect",
+    upload.single("image"),
+    detectMicroplastics
+);
 
 module.exports = router;

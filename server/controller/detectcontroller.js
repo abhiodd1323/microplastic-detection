@@ -1,15 +1,24 @@
 const detectMicroplastics = async (req, res) => {
+
     try {
-        res.status(200).json({
+
+        console.log(req.file);
+
+        return res.status(200).json({
             success: true,
-            message: "Controller is working"
+            filename: req.file.filename,
+            message: "Image uploaded successfully"
         });
+
     } catch (error) {
-        res.status(500).json({
+
+        return res.status(500).json({
             success: false,
             message: error.message
         });
+
     }
+
 };
 
 module.exports = {
