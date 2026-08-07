@@ -1,6 +1,6 @@
 const { detectImage } = require("../services/roboflowService");
 const service = require("../services/roboflowService");
-
+console.log("Detect endpoint called");
 console.log(service);
 
 const detectMicroplastics = async (req, res) => {
