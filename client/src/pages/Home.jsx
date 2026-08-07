@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import api from "../services/api";
+import Header from "../components/Header";
+import Footer from "../components/footer";
 
 
 function Home() {
@@ -40,7 +42,9 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-6">
+    <div>
+      <Header />
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6">
 
       <h1 className="text-4xl font-bold">
         AI Microplastic Detection
@@ -66,7 +70,10 @@ function Home() {
       )}
 
     </div>
+    
+    </div>
   );
 }
 
 export default Home;
+
