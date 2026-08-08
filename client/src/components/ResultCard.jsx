@@ -1,17 +1,73 @@
-function App() {
-  return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white shadow-xl rounded-xl p-10">
-        <h1 className="text-4xl font-bold text-blue-600 text-center">
-          AI Microplastic Detection
-        </h1>
+import PredictionCard from "./PredictionCard";
+import LoadingSpinner from "./LoadingSpinner";
 
-        <p className="mt-4 text-gray-600 text-center">
-          Tailwind CSS is working successfully! 🎉
+function ResultCard({ result, loading }) {
+
+  return (
+
+    <div className="bg-white rounded-2xl shadow-lg p-8">
+
+      <h2 className="text-2xl font-semibold mb-6">
+        Detection Results
+      </h2>
+
+      {!result && !loading && (
+        <p className="text-gray-500">
+          Upload an image and click Detect.
         </p>
-      </div>
+      )}
+
+      {loading && <LoadingSpinner />}
+
+      {result && (
+
+        <>
+
+          <div className="mb-6">
+
+            <p>
+
+              <strong>Total Detections:</strong>{" "}
+              {result.predictions.length}
+
+            </p>
+
+            <p>
+
+              <strong>Time:</strong> {result.time} sec
+
+            </p>
+
+            <p>
+
+              <strong>Image Size:</strong>{" "}
+              {result.image.width} × {result.image.height}
+
+            </p>
+
+          </div>
+
+          <div className="space-y-4">
+
+            {result.predictions.map((prediction, index) => (
+
+              <PredictionCard
+                key={index}
+                prediction={prediction}
+              />
+
+            ))}
+
+          </div>
+
+        </>
+
+      )}
+
     </div>
+
   );
+
 }
 
-export default App;
+export default ResultCard;

@@ -1,4 +1,8 @@
 import React from "react";
+import Home from "../pages/Home";
+import { useNavigate } from "react-router-dom";
+
+
 
 /**
  * Visual preview only — plain <a> tags stand in for React Router's
@@ -7,6 +11,7 @@ import React from "react";
  */
 
 function ScanMark({ size = 20 }) {
+   
   return (
     <svg width={size} height={size} viewBox="0 0 26 26" fill="none">
       <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
@@ -18,6 +23,7 @@ function ScanMark({ size = 20 }) {
 }
 
 function MiniHeader() {
+  const navigate = useNavigate();
   return (
     <header className="pv-hdr">
       <div className="pv-hdr-inner">
@@ -26,12 +32,12 @@ function MiniHeader() {
           <span className="pv-brand-text">Micro<span className="pv-accent">Detect</span></span>
         </a>
         <nav className="pv-nav">
-          <a href="#home" className="pv-link pv-link-active">Home</a>
-          <a href="#test" className="pv-link">Test</a>
-          <a href="#features" className="pv-link">Features</a>
-          <a href="#about" className="pv-link">About Us</a>
+          <a onClick={() => navigate("/Home")} className="pv-link pv-link-active">Home</a>
+          <a onClick={() => navigate("/Test")} className="pv-link">Test</a>
+          <a onClick={() => navigate("/Features")} className="pv-link">Features</a>
+          <a onClick={() => navigate("/About")} className="pv-link">About Us</a>
         </nav>
-        <a href="#test" className="pv-cta">Launch Detector</a>
+        <a onClick={() => navigate("/detect")}className="pv-cta">Launch Detector</a>
       </div>
     </header>
   );
@@ -39,63 +45,11 @@ function MiniHeader() {
 
 const PRODUCT_LINKS = ["Home", "Test the Detector", "Features"];
 
-function Footer() {
-  return (
-    <footer className="pv-ftr">
-      <div className="pv-ftr-top">
-        <div className="pv-ftr-grid">
-          <div className="pv-ftr-col pv-ftr-brand-col">
-            <a href="#home" className="pv-ftr-brand">
-              <span className="pv-ftr-brand-mark"><ScanMark size={18} /></span>
-              <span className="pv-ftr-brand-text">Micro<span className="pv-accent">Detect</span></span>
-            </a>
-            <p className="pv-ftr-tagline">
-              AI-powered microplastic detection for microscope imagery — upload an image,
-              get particle-level results in seconds.
-            </p>
-            {/* <span className="pv-ftr-status">
-              <span className="pv-ftr-status-dot" />
-              detect endpoint: online
-            </span> */}
-          </div>
 
-          <div className="pv-ftr-col">
-            <h4>Product</h4>
-            <ul>
-              {PRODUCT_LINKS.map((l) => (
-                <li key={l}><a href="#test">{l}</a></li>
-              ))}
-            </ul>
-          </div>
 
-          <div className="pv-ftr-col">
-            <h4>Company</h4>
-            <ul>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="mailto:hello@microdetect.app">Contact</a></li>
-            </ul>
-          </div>
-
-          <div className="pv-ftr-col">
-            <h4>Get in touch</h4>
-            <p className="pv-ftr-contact"><a href="mailto:hello@microdetect.app">hello@microdetect.app</a></p>
-            <a href="#test" className="pv-ftr-cta">Try the Detector</a>
-          </div>
-        </div>
-      </div>
-
-      <div className="pv-ftr-bottom">
-        <span>© {new Date().getFullYear()} MicroDetect. All rights reserved.</span>
-        <div className="pv-ftr-legal">
-          <a href="#privacy">Privacy</a>
-          <a href="#terms">Terms</a>
-        </div>
-      </div>
-    </footer>
-  );
-}
 
 export default function App() {
+  const navigate = useNavigate();
   return (
     <div className="pv-root">
       <style>{`
@@ -162,8 +116,8 @@ export default function App() {
       `}</style>
 
       <MiniHeader />
-      <div className="pv-filler">Page content goes here — this block is just spacing so you can see the footer sit at the bottom of the viewport.</div>
-      <Footer />
+      
+     
     </div>
   );
 }

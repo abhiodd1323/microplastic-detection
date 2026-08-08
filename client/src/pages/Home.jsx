@@ -1,79 +1,101 @@
-import { useState } from "react";
-import axios from "axios";
-import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
-import Footer from "../components/footer";
+import AIScannerAnimation from "../components/AIScannerAnimation";
+import Footer from "../components/Footer";
 
+import HealthCarousal from "../components/HealthCarousel";
+import MicroplasticInfo from "../components/MicroplasticInfo";
 
 function Home() {
-  const [image, setImage] = useState(null);
-  const [result, setResult] = useState(null);
-
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
-  };
-
-  const handleDetect = async () => {
-    if (!image) {
-      alert("Please select an image.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("image", image);
-
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/detect",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      setResult(response.data);
-
-    } catch (error) {
-      console.error(error);
-      alert("Detection failed.");
-    }
-  };
+  const navigate = useNavigate();
 
   return (
-    <div>
+    <>
       <Header />
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6">
 
-      <h1 className="text-4xl font-bold">
-        AI Microplastic Detection
-      </h1>
+      <section
+  className="
+    min-h-screen
+    flex
+    flex-col
+    lg:flex-row
+    items-center
+    justify-between
+    px-6
+    md:px-12
+    lg:px-20
+    py-12
+    gap-12
+  "
+>
 
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleImageChange}
-      />
+        {/* Left Section */}
+        <div className="max-w-xl">
+          <h1 className="text-6xl font-bold">
+            AI Microplastic Detection
+          </h1>
 
-      <button
-        onClick={handleDetect}
-        className="bg-blue-600 text-white px-6 py-2 rounded"
-      >
-        Detect
-      </button>
+          <p className="mt-6 text-xl text-gray-600">
+            Upload microscope images and detect
+            microplastics instantly using AI.
+          </p>
 
-      {result && (
-        <pre className="bg-gray-100 p-4 rounded w-3/4 overflow-auto">
-          {JSON.stringify(result, null, 2)}
-        </pre>
-      )}
+          <button
+            onClick={() => navigate("/detect")}
+            className="mt-8 bg-blue-600 text-white px-8 py-4 rounded-xl hover:bg-blue-700 transition"
+          >
+            Start Detection
+          </button>
+        </div>
 
-    </div>
-    
-    </div>
+        {/* Right Section */}
+        <div className="flex justify-end w-1/2">
+
+          <div className="relative flex items-center justify-center w-[500px] h-[500px]">
+
+            {/* Blue Glow */}
+            <div className="absolute w-80 h-80 bg-blue-500/20 blur-3xl rounded-full"></div>
+
+            {/* Hero Image */}
+            <div className="flex justify-end w-1/2">
+                  <AIScannerAnimation />
+            </div>
+            
+
+            {/* Orbit 1 */}
+            <div className="absolute animate-orbit1">
+              <div className="w-5 h-5 rounded-full bg-cyan-400 shadow-[0_0_20px_#22d3ee]"></div>
+            </div>
+
+            {/* Orbit 2 */}
+            <div className="absolute animate-orbit2">
+              <div className="w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_20px_#3b82f6]"></div>
+            </div>
+
+            {/* Orbit 3 */}
+            <div className="absolute animate-orbit3">
+              <div className="w-6 h-6 rounded-full bg-indigo-400 shadow-[0_0_25px_#818cf8]"></div>
+            </div>
+
+            {/* Orbit 4 */}
+            <div className="absolute animate-orbit4">
+              <div className="w-3 h-3 rounded-full bg-sky-300 shadow-[0_0_18px_#7dd3fc]"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+       <HealthCarousal />
+        <MicroplasticInfo />
+        
+        
+       
+
+      <Footer />
+    </>
   );
 }
 
 export default Home;
-

@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 /**
  * Visual preview only — plain <a> tags stand in for React Router's
  * <Link>/<NavLink> here since this sandbox can't run react-router-dom.
@@ -17,29 +17,12 @@ function ScanMark({ size = 20 }) {
   );
 }
 
-function MiniHeader() {
-  return (
-    <header className="pv-hdr">
-      <div className="pv-hdr-inner">
-        <a className="pv-brand" href="#home">
-          <span className="pv-brand-mark"><ScanMark /></span>
-          <span className="pv-brand-text">Micro<span className="pv-accent">Detect</span></span>
-        </a>
-        <nav className="pv-nav">
-          <a href="#home" className="pv-link pv-link-active">Home</a>
-          <a href="#test" className="pv-link">Test</a>
-          <a href="#features" className="pv-link">Features</a>
-          <a href="#about" className="pv-link">About Us</a>
-        </nav>
-        <a href="#test" className="pv-cta">Launch Detector</a>
-      </div>
-    </header>
-  );
-}
+
 
 const PRODUCT_LINKS = ["Home", "Test the Detector", "Features"];
 
 function Footer() {
+  const navigate = useNavigate();
   return (
     <footer className="pv-ftr">
       <div className="pv-ftr-top">
@@ -62,9 +45,11 @@ function Footer() {
           <div className="pv-ftr-col">
             <h4>Product</h4>
             <ul>
-              {PRODUCT_LINKS.map((l) => (
-                <li key={l}><a href="#test">{l}</a></li>
-              ))}
+              {PRODUCT_LINKS.map((link) => (
+          <li key={link}>
+            <a href="#test">{link}</a>
+          </li>
+        ))}
             </ul>
           </div>
 
@@ -161,8 +146,8 @@ export default function App() {
         .pv-ftr-legal a:hover { color: #fff; }
       `}</style>
 
-      <MiniHeader />
-      <div className="pv-filler">Page content goes here — this block is just spacing so you can see the footer sit at the bottom of the viewport.</div>
+     
+      
       <Footer />
     </div>
   );
