@@ -10,7 +10,7 @@ export default function HealthCarousel() {
   useEffect(() => {
     const interval = setInterval(() => {
       setRotation((prev) => prev + 1);
-    }, 3000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
